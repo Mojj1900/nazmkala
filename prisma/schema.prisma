@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // برای شروع از SQLite استفاده کنید، بعداً می‌توانید به postgresql تغییر دهید
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  name      String
+  icon      String?
+  products  Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  title       String
+  description String
+  price       Int
+  oldPrice    Int?
+  stock       Int         @default(0)
+  rating      Float       @default(0)
+  image       String
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  name      String?
+  addresses Address[]
+  orders    Order[]
+  createdAt DateTime @default(now())
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  fullName   String
+  phone      String
+  province   String
+  city       String
+  fullAddress String
+  postalCode String
+  createdAt  DateTime @default(now())
+}
+
+// SQLite از enum پشتیبانی نمی‌کند، پس وضعیت سفارش را به‌صورت رشته نگه می‌داریم.
+// مقادیر مجاز: PENDING | PAID | SHIPPED | DELIVERED | CANCELLED
+model Order {
+  id          String      @id @default(cuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  items       OrderItem[]
+  status      String      @default("PENDING")
+  totalPrice  Int
+  address     String
+  postalCode  String
+  authority   String?     @unique
+  refId       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  qty       Int
+  price     Int
+}
+
+model OtpCode {
+  id        String   @id @default(cuid())
+  phone     String
+  code      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
