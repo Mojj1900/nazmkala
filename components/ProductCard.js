@@ -8,6 +8,9 @@ import { useCart } from "./CartProvider";
 export default function ProductCard({ product }) {
   const { addItem } = useCart();
   const hasDiscount = product.oldPrice && product.oldPrice > product.price;
+  const discountPercent = hasDiscount
+    ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+    : 0;
 
   return (
     <div className="card group flex flex-col overflow-hidden">
@@ -20,8 +23,8 @@ export default function ProductCard({ product }) {
           className="object-cover transition duration-300 group-hover:scale-105"
         />
         {hasDiscount && (
-          <span className="absolute right-3 top-3 rounded-lg bg-brand-green px-2 py-1 text-xs font-bold text-white">
-            تخفیف
+          <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-red-500 text-[11px] font-bold text-white shadow-sm">
+            {discountPercent}٪
           </span>
         )}
       </Link>

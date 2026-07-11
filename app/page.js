@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getCategories, getProducts } from "@/lib/queries";
 import ProductCard from "@/components/ProductCard";
+import HomeProductTabs from "@/components/HomeProductTabs";
 
 export default async function HomePage() {
   const [categories, products] = await Promise.all([
@@ -8,39 +10,44 @@ export default async function HomePage() {
     getProducts(),
   ]);
 
+  const saleProducts = products.filter((p) => p.oldPrice && p.oldPrice > p.price);
+
   return (
-    <div>
-      <section className="bg-gradient-to-b from-brand-mint to-white">
-        <div className="container-app grid grid-cols-1 items-center gap-8 py-14 sm:grid-cols-2 sm:py-20">
-          <div>
-            <span className="mb-3 inline-block rounded-full bg-brand-greenLight px-3 py-1 text-xs font-medium text-brand-tealDark">
-              فروشگاه اینترنتی رامش‌کالا
-            </span>
-            <h1 className="mb-4 text-3xl font-bold leading-relaxed text-gray-800 sm:text-4xl">
-              هر خانه‌ای، شایسته
-              <span className="text-brand-teal"> آرامش </span>
-              و
-              <span className="text-brand-green"> نظم </span>
-              است
-            </h1>
-            <p className="mb-6 text-gray-500">
-              مجموعه‌ای منتخب از لوازم خانگی و نظم‌دهنده‌ها برای ساده‌تر کردن زندگی روزمره شما.
-            </p>
-            <div className="flex gap-3">
-              <Link href="/products" className="btn-primary">
-                مشاهده محصولات
-              </Link>
-              <Link href="/about" className="btn-outline">
-                درباره ما
-              </Link>
-            </div>
+    <div className="bg-brand-sage">
+      {/* هیرو تمام‌عرض با عکس */}
+      <section className="relative h-[420px] w-full overflow-hidden sm:h-[520px]">
+        <Image
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
+          alt="رامش‌کالا"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/25 to-transparent" />
+        <div className="container-app relative flex h-full flex-col items-start justify-center text-white">
+          <span className="mb-3 inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
+            فروشگاه اینترنتی رامش‌کالا
+          </span>
+          <h1 className="mb-3 text-3xl font-bold leading-relaxed sm:text-5xl">
+            رامش‌کالا
+          </h1>
+          <p className="mb-6 max-w-md text-sm text-white/90 sm:text-base">
+            بورس لوازم خانه و نظم‌دهنده‌ها — هر خانه‌ای، شایسته آرامش و نظم است.
+          </p>
+          <div className="flex gap-3">
+            <Link href="/products" className="btn-primary">
+              مشاهده محصولات
+            </Link>
+            <Link href="/about" className="rounded-xl border border-white/70 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/10">
+              درباره ما
+            </Link>
           </div>
-          <div className="mx-auto h-56 w-56 rounded-full bg-brand-teal/10 sm:h-72 sm:w-72" />
         </div>
       </section>
 
-      <section className="container-app py-10">
-        <h2 className="mb-5 text-lg font-bold text-gray-800">دسته‌بندی‌ها</h2>
+      {/* دسته‌بندی‌ها با عکس */}
+      <section className="container-app py-12">
+        <h2 className="mb-6 text-lg font-bold text-gray-800">دسته‌بندی محصولات</h2>
         {categories.length === 0 ? (
           <p className="text-sm text-gray-400">هنوز دسته‌بندی‌ای ثبت نشده. از پنل مدیریت اضافه کن.</p>
         ) : (
@@ -49,33 +56,54 @@ export default async function HomePage() {
               <Link
                 key={c.id}
                 href={`/products?category=${c.slug}`}
-                className="card flex flex-col items-center gap-2 p-5 text-center"
+                className="group relative aspect-square overflow-hidden rounded-2xl bg-white shadow-sm transition hover:shadow-md"
               >
-                <span className="text-2xl">{c.icon}</span>
-                <span className="text-sm font-medium text-gray-700">{c.name}</span>
+                {c.image ? (
+                  <Image
+                    src={c.image}
+                    alt={c.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover transition duration-300 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-4xl">
+                    {c.icon}
+                  </div>
+                )}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                  <span className="text-sm font-medium text-white">{c.name}</span>
+                </div>
               </Link>
             ))}
           </div>
         )}
       </section>
 
-      <section className="container-app py-10">
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-gray-800">محصولات پیشنهادی</h2>
-          <Link href="/products" className="text-sm text-brand-teal hover:underline">
-            مشاهده همه
-          </Link>
-        </div>
-        {products.length === 0 ? (
-          <p className="text-sm text-gray-400">هنوز محصولی ثبت نشده. از پنل مدیریت اضافه کن.</p>
-        ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        )}
+      {/* ترین‌های فروشگاه - تب‌دار */}
+      <section className="container-app py-12">
+        <h2 className="mb-6 text-lg font-bold text-gray-800">ترین‌های رامش‌کالا</h2>
+        <HomeProductTabs products={JSON.parse(JSON.stringify(products))} />
       </section>
+
+      {/* فروش ویژه */}
+      {saleProducts.length > 0 && (
+        <section className="bg-white py-12">
+          <div className="container-app">
+            <div className="mb-6 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-gray-800">فروش ویژه رامش‌کالا</h2>
+              <Link href="/products" className="text-sm text-brand-teal hover:underline">
+                مشاهده همه
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {saleProducts.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsappButton from "@/components/WhatsappButton";
 
 export const metadata = {
   title: "رامش‌کالا | فروشگاه لوازم خانگی و نظم‌دهنده‌ها",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
           <Header />
           <main className="min-h-[70vh]">{children}</main>
           <Footer />
+          <WhatsappButton />
         </CartProvider>
       </body>
     </html>

@@ -10,8 +10,8 @@ const badges = [
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-gray-100">
-      <div className="bg-brand-mint">
+    <footer className="mt-16 border-t border-brand-sageDark">
+      <div className="bg-brand-sage">
         <div className="container-app grid grid-cols-2 gap-4 py-6 text-xs text-gray-600 sm:grid-cols-5 sm:text-sm">
           {badges.map((b) => (
             <div key={b.label} className="flex items-center gap-2">

@@ -14,6 +14,10 @@ module.exports = {
           greenLight: "#E8F7F4",
           mint: "#F2FAF0",
           ink: "#333333",
+          sage: "#E9F0E6",
+          sageDark: "#DCE7D7",
+          cream: "#FBFAF6",
+          navy: "#2E2E45",
         },
       },
       fontFamily: {

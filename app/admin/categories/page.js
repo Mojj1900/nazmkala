@@ -13,6 +13,7 @@ export default async function AdminCategoriesPage() {
         <form action={createCategory} className="flex flex-wrap gap-3">
           <input name="name" required placeholder="نام دسته‌بندی" className="rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-brand-teal" />
           <input name="icon" placeholder="ایموجی (مثلاً 🧹)" className="w-40 rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-brand-teal" />
+          <input name="image" placeholder="لینک عکس (اختیاری)" className="w-64 rounded-xl border border-gray-200 px-3 py-2 text-sm outline-none focus:border-brand-teal" />
           <button type="submit" className="btn-primary">افزودن</button>
         </form>
       </div>
@@ -23,7 +24,11 @@ export default async function AdminCategoriesPage() {
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {categories.map((c) => (
             <div key={c.id} className="card flex flex-col items-center gap-2 p-5 text-center">
-              <span className="text-2xl">{c.icon}</span>
+              {c.image ? (
+                <img src={c.image} alt={c.name} className="h-14 w-14 rounded-full object-cover" />
+              ) : (
+                <span className="text-2xl">{c.icon}</span>
+              )}
               <span className="text-sm font-medium text-gray-700">{c.name}</span>
               <form action={deleteCategory}>
                 <input type="hidden" name="id" value={c.id} />
