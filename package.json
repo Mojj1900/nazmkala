@@ -14,15 +14,16 @@
     "seed:products-bulk": "node prisma/add-products-bulk.js"
   },
   "dependencies": {
+    "@prisma/client": "5.17.0",
+    "@vercel/speed-insights": "^2.0.0",
     "next": "14.2.5",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "@prisma/client": "5.17.0"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "autoprefixer": "10.4.19",
     "postcss": "8.4.39",
-    "tailwindcss": "3.4.6",
-    "prisma": "5.17.0"
+    "prisma": "5.17.0",
+    "tailwindcss": "3.4.6"
   }
 }
