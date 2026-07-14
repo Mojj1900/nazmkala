@@ -1,5 +1,5 @@
 {
-  "name": "rameshkala-store",
+  "name": "nazmkala-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,8 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "node prisma/seed.js",
-    "seed:categories": "node prisma/add-categories.js"
+    "seed:categories": "node prisma/add-categories.js",
+    "seed:products-bulk": "node prisma/add-products-bulk.js"
   },
   "dependencies": {
     "next": "14.2.5",

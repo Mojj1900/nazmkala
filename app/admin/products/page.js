@@ -2,6 +2,7 @@ import { getProducts } from "@/lib/queries";
 import { formatToman } from "@/lib/data";
 import { prisma } from "@/lib/prisma";
 import { createProduct, deleteProduct } from "@/lib/actions";
+import Link from "next/link";
 
 export default async function AdminProductsPage() {
   const [products, categories] = await Promise.all([
@@ -61,10 +62,15 @@ export default async function AdminProductsPage() {
                 <td className="p-3">{p.stock}</td>
                 <td className="p-3">{p.category?.name}</td>
                 <td className="p-3">
-                  <form action={deleteProduct}>
-                    <input type="hidden" name="id" value={p.id} />
-                    <button type="submit" className="text-red-400 hover:underline">حذف</button>
-                  </form>
+                  <div className="flex items-center gap-3">
+                    <Link href={`/admin/products/${p.id}`} className="text-brand-teal hover:underline">
+                      ویرایش
+                    </Link>
+                    <form action={deleteProduct}>
+                      <input type="hidden" name="id" value={p.id} />
+                      <button type="submit" className="text-red-400 hover:underline">حذف</button>
+                    </form>
+                  </div>
                 </td>
               </tr>
             ))}

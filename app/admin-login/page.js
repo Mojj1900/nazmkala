@@ -1,14 +1,16 @@
 import { loginAdmin } from "@/lib/auth";
+import { getSettings } from "@/lib/queries";
 
-export default function AdminLoginPage({ searchParams }) {
+export default async function AdminLoginPage({ searchParams }) {
   const hasError = searchParams?.error === "1";
+  const settings = await getSettings();
 
   return (
     <div className="container-app flex min-h-screen items-center justify-center">
       <div className="card w-full max-w-sm p-6">
         <div className="mb-6 text-center">
           <div className="text-lg font-bold text-brand-teal">
-            رامش<span className="text-brand-green">کالا</span>
+            {settings.storeName}
           </div>
           <p className="mt-1 text-sm text-gray-500">ورود به پنل مدیریت</p>
         </div>

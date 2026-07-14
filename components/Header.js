@@ -11,7 +11,7 @@ const nav = [
   { href: "/contact", label: "تماس با ما" },
 ];
 
-export default function Header() {
+export default function Header({ storeName = "نظم‌کالا" }) {
   const { count } = useCart();
 
   return (
@@ -32,7 +32,7 @@ export default function Header() {
               🏠
             </span>
             <span className="text-lg font-bold text-brand-tealDark">
-              رامش<span className="text-brand-green">کالا</span>
+              {storeName}
             </span>
           </Link>
 

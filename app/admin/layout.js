@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { logoutAdmin } from "@/lib/auth";
+import { getSettings } from "@/lib/queries";
 
 const links = [
   { href: "/admin", label: "داشبورد", icon: "📊" },
@@ -10,12 +11,14 @@ const links = [
   { href: "/admin/settings", label: "تنظیمات و بنرها", icon: "⚙️" },
 ];
 
-export default function AdminLayout({ children }) {
+export default async function AdminLayout({ children }) {
+  const settings = await getSettings();
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container-app grid grid-cols-1 gap-6 py-8 sm:grid-cols-[220px_1fr]">
         <aside className="card h-fit p-3">
-          <div className="mb-3 px-2 text-sm font-bold text-brand-teal">پنل مدیریت رامش‌کالا</div>
+          <div className="mb-3 px-2 text-sm font-bold text-brand-teal">پنل مدیریت {settings.storeName}</div>
           <nav className="space-y-1 text-sm">
             {links.map((l) => (
               <Link

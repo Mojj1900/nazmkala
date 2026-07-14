@@ -1,9 +1,9 @@
 export default function AboutPage() {
   return (
     <div className="container-app max-w-3xl py-10 leading-8 text-gray-600">
-      <h1 className="mb-6 text-xl font-bold text-gray-800">درباره رامش‌کالا</h1>
+      <h1 className="mb-6 text-xl font-bold text-gray-800">درباره نظم‌کالا</h1>
       <p className="mb-4">
-        رامش‌کالا با هدف ساده‌تر و منظم‌تر کردن زندگی خانگی شما شکل گرفته است. ما مجموعه‌ای
+        نظم‌کالا با هدف ساده‌تر و منظم‌تر کردن زندگی خانگی شما شکل گرفته است. ما مجموعه‌ای
         منتخب از لوازم خانگی و نظم‌دهنده‌ها را با کیفیت مناسب و قیمت منصفانه عرضه می‌کنیم.
       </p>
       <p>

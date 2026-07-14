@@ -1,30 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,jsx}",
-    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
         brand: {
-          teal: "#00B5AD",
-          tealDark: "#008F88",
-          green: "#7BC043",
-          greenLight: "#E8F7F4",
-          mint: "#F2FAF0",
-          ink: "#333333",
-          sage: "#E9F0E6",
-          sageDark: "#DCE7D7",
-          cream: "#FBFAF6",
-          navy: "#2E2E45",
+          dark: "#0f0f0f",
+          light: "#f8f5f0",
+          gold: "#d4af37",
+          teal: "#006d5f",
+          tealDark: "#004d44",
+          greenLight: "#e0f2e9",
+          muted: "#555555",
         },
       },
       fontFamily: {
-        sans: ["IRANSansX", "Tahoma", "sans-serif"],
-      },
-      borderRadius: {
-        xl2: "1.25rem",
+        sans: ["IRANSansX", "system-ui", "sans-serif"],
       },
     },
   },

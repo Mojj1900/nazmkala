@@ -11,7 +11,7 @@ const categories = [
 const products = [
   {
     slug: "jaeksiri-chandtabaghe",
-    title: "جاکفشی چندطبقه رامش",
+    title: "جاکفشی چندطبقه نظم",
     price: 890000,
     oldPrice: 1050000,
     categorySlug: "tanzimkonande",

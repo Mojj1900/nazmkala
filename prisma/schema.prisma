@@ -3,8 +3,7 @@ generator client {
 }
 
 datasource db {
-  // برای شروع از SQLite استفاده کنید، بعداً می‌توانید به postgresql تغییر دهید
-  provider = "sqlite"
+    provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -28,11 +27,28 @@ model Product {
   stock       Int         @default(0)
   rating      Float       @default(0)
   image       String
+  images      ProductImage[]
   category    Category    @relation(fields: [categoryId], references: [id])
   categoryId  String
   orderItems  OrderItem[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model Settings {
+  id          String   @id @default("main")
+  storeName   String   @default("نظم‌کالا")
+  tagline     String   @default("هر خانه‌ای، شایسته آرامش و نظم است.")
+  bannerImage String?
+  updatedAt   DateTime @updatedAt
 }
 
 model User {

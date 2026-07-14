@@ -1,13 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getCategories, getProducts } from "@/lib/queries";
+import { getCategories, getProducts, getSettings } from "@/lib/queries";
 import ProductCard from "@/components/ProductCard";
 import HomeProductTabs from "@/components/HomeProductTabs";
 
+const DEFAULT_BANNER = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop";
+
 export default async function HomePage() {
-  const [categories, products] = await Promise.all([
+  const [categories, products, settings] = await Promise.all([
     getCategories(),
     getProducts(),
+    getSettings(),
   ]);
 
   const saleProducts = products.filter((p) => p.oldPrice && p.oldPrice > p.price);
@@ -17,8 +20,8 @@ export default async function HomePage() {
       {/* هیرو تمام‌عرض با عکس */}
       <section className="relative h-[420px] w-full overflow-hidden sm:h-[520px]">
         <Image
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
-          alt="رامش‌کالا"
+          src={settings.bannerImage || DEFAULT_BANNER}
+          alt={settings.storeName}
           fill
           priority
           className="object-cover"
@@ -26,13 +29,13 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/25 to-transparent" />
         <div className="container-app relative flex h-full flex-col items-start justify-center text-white">
           <span className="mb-3 inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
-            فروشگاه اینترنتی رامش‌کالا
+            فروشگاه اینترنتی {settings.storeName}
           </span>
           <h1 className="mb-3 text-3xl font-bold leading-relaxed sm:text-5xl">
-            رامش‌کالا
+            {settings.storeName}
           </h1>
           <p className="mb-6 max-w-md text-sm text-white/90 sm:text-base">
-            بورس لوازم خانه و نظم‌دهنده‌ها — هر خانه‌ای، شایسته آرامش و نظم است.
+            بورس لوازم خانه و نظم‌دهنده‌ها — {settings.tagline}
           </p>
           <div className="flex gap-3">
             <Link href="/products" className="btn-primary">
@@ -82,7 +85,7 @@ export default async function HomePage() {
 
       {/* ترین‌های فروشگاه - تب‌دار */}
       <section className="container-app py-12">
-        <h2 className="mb-6 text-lg font-bold text-gray-800">ترین‌های رامش‌کالا</h2>
+        <h2 className="mb-6 text-lg font-bold text-gray-800">ترین‌های {settings.storeName}</h2>
         <HomeProductTabs products={JSON.parse(JSON.stringify(products))} />
       </section>
 
@@ -91,7 +94,7 @@ export default async function HomePage() {
         <section className="bg-white py-12">
           <div className="container-app">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-gray-800">فروش ویژه رامش‌کالا</h2>
+              <h2 className="text-lg font-bold text-gray-800">فروش ویژه {settings.storeName}</h2>
               <Link href="/products" className="text-sm text-brand-teal hover:underline">
                 مشاهده همه
               </Link>

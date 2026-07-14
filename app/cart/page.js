@@ -1,12 +1,24 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useCart } from "@/components/CartProvider";
 import { formatToman } from "@/lib/data";
 
 export default function CartPage() {
+  return (
+    <Suspense fallback={null}>
+      <CartPageContent />
+    </Suspense>
+  );
+}
+
+function CartPageContent() {
   const { items, updateQty, removeItem, subtotal } = useCart();
+  const searchParams = useSearchParams();
+  const stockError = searchParams.get("error") === "stock";
 
   if (items.length === 0) {
     return (
@@ -22,6 +34,12 @@ export default function CartPage() {
   return (
     <div className="container-app py-10">
       <h1 className="mb-6 text-xl font-bold text-gray-800">سبد خرید</h1>
+
+      {stockError && (
+        <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+          متأسفانه موجودی یکی از کالاهای سبد خرید شما کافی نیست. لطفاً تعداد را کاهش دهید یا آن را حذف کنید.
+        </div>
+      )}
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-[1fr_300px]">
         <div className="space-y-4">

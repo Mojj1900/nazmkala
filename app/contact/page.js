@@ -22,8 +22,8 @@ export default function ContactPage() {
         <div className="card space-y-3 p-6 text-sm text-gray-600">
           <div>📍 آدرس: ایران</div>
           <div>📞 تلفن: 021 1234 5678</div>
-          <div>✉️ ایمیل: info@rameshkala.com</div>
-          <div>📱 اینستاگرام: rameshkala@</div>
+          <div>✉️ ایمیل: info@nazmkala.com</div>
+          <div>📱 اینستاگرام: nazmkala@</div>
         </div>
       </div>
     </div>

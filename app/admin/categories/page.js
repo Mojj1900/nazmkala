@@ -1,5 +1,6 @@
 import { getCategories } from "@/lib/queries";
 import { createCategory, deleteCategory } from "@/lib/actions";
+import Link from "next/link";
 
 export default async function AdminCategoriesPage() {
   const categories = await getCategories();
@@ -30,10 +31,15 @@ export default async function AdminCategoriesPage() {
                 <span className="text-2xl">{c.icon}</span>
               )}
               <span className="text-sm font-medium text-gray-700">{c.name}</span>
-              <form action={deleteCategory}>
-                <input type="hidden" name="id" value={c.id} />
-                <button type="submit" className="text-xs text-red-400 hover:underline">حذف</button>
-              </form>
+              <div className="flex items-center gap-3">
+                <Link href={`/admin/categories/${c.id}`} className="text-xs text-brand-teal hover:underline">
+                  ویرایش
+                </Link>
+                <form action={deleteCategory}>
+                  <input type="hidden" name="id" value={c.id} />
+                  <button type="submit" className="text-xs text-red-400 hover:underline">حذف</button>
+                </form>
+              </div>
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ const badges = [
   { icon: "✅", label: "ضمانت اصالت کالا" },
 ];
 
-export default function Footer() {
+export default function Footer({ storeName = "نظم‌کالا", tagline = "هر خانه‌ای، شایسته آرامش و نظم است." }) {
   return (
     <footer className="mt-16 border-t border-brand-sageDark">
       <div className="bg-brand-sage">
@@ -25,10 +25,10 @@ export default function Footer() {
       <div className="container-app grid grid-cols-1 gap-8 py-10 sm:grid-cols-3">
         <div>
           <div className="mb-2 text-lg font-bold text-brand-teal">
-            رامش<span className="text-brand-green">کالا</span>
+            {storeName}
           </div>
           <p className="text-sm text-gray-500">
-            هر خانه‌ای، شایسته آرامش و نظم است.
+            {tagline}
           </p>
         </div>
 
@@ -46,14 +46,14 @@ export default function Footer() {
           <div className="mb-3 font-semibold text-gray-700">تماس با ما</div>
           <ul className="space-y-2 text-gray-500">
             <li>021 1234 5678</li>
-            <li>info@rameshkala.com</li>
-            <li>@rameshkala</li>
+            <li>info@nazmkala.com</li>
+            <li>@nazmkala</li>
           </ul>
         </div>
       </div>
 
       <div className="border-t border-gray-100 py-4 text-center text-xs text-gray-400">
-        © {new Date().getFullYear()} رامش‌کالا. تمامی حقوق محفوظ است.
+        © {new Date().getFullYear()} {storeName}. تمامی حقوق محفوظ است.
       </div>
     </footer>
   );
